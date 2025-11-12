@@ -1,24 +1,25 @@
 <template>
     <div>
         <h1>Edit Profile</h1>
-        <label>
+        <label for="name" data-test-id="name-label">
             Name:
-            <input v-model="name" />
         </label>
-        <label>
+        <input v-model="name" name="name" data-test-id="name-input" />
+        <label for="age" data-test-id="age-label">
             Age:
-            <input type="number" v-model.number="age" />
         </label>
+        <input type="number" v-model.number="age" name="age" data-test-id="age-input" />
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { watch } from 'vue'
 import { useProfileStore } from '../store/profile'
+import { storeToRefs } from 'pinia'
 
 const profileStore = useProfileStore()
-const name = ref<string>(profileStore.name)
-const age = ref<number>(profileStore.age)
+
+const { name, age } = storeToRefs(profileStore)
 
 // Sync changes back to the store
 watch(name, (val) => profileStore.name = val)

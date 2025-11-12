@@ -2,16 +2,17 @@
 <template>
   <div>
     <h1>Profile</h1>
-    <p>Name: {{ name }}</p>
-    <p>Age: {{ age }}</p>
+    <p>Name: <span data-test-id="view-name-value">{{ name }}</span></p>
+    <p>Age: <span data-test-id="view-age-value">{{ age }}</span></p>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useProfileStore } from '../store/profile'
+import { storeToRefs } from 'pinia'
 
 const profileStore = useProfileStore()
-const { name, age } = profileStore
+const { name, age } = storeToRefs(profileStore)
 </script>
 
 <style scoped>
